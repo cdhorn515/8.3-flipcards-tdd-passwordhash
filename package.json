@@ -4,15 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha tests"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mustache-express": "^1.2.5",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "bluebird": "^3.5.0",
+    "chai": "^4.1.0",
     "mongoose": "^4.10.8"
   }
 }
