@@ -2,18 +2,51 @@ const User = require('../models/user');
 const createUser = require('../app').createUser;
 const createPasswordHashObj = require('../app').createPasswordHashObj;
 // const hashString = require('../app').hashString;
-
+const login = require('../app').login;
 const expect = require('chai').expect;
 
 
 
-describe('use model tests', function(){
+describe('user model tests', function(){
+
+  afterEach(function(done){
+  User.deleteMany({}).then(function(){
+    done();
+  });
+});
+
+it('will not login if invalid user', function(done){
+  createUser('sami', 'treats').then(function(user){
+  login('sera', 'treats').then(function(result) {
+    expect(result).to.equal(false);
+    done();
+  });
+});
+});
+
+  it('will not log in if invalid password', function(done) {
+    createUser('sami', 'treats').then(function(user){
+      login('sami', 'peanutbutter').then(function(result) {
+        expect(result).to.equal(false);
+        done();
+      });
+    });
+  });
+
+  it('can log in and return true if valid login', function(done) {
+    createUser('sami', 'treats').then(function(user){
+      login('sami', 'treats').then(function(result) {
+        expect(result).to.equal(true);
+        done();
+      });
+    });
+  });
 
   it('can generate a password hash from a string', function(done) {
-    const passwordObj = createPasswordHashObj('password');
-    const expectedHashObj = {salt: 'asdf', iterations: 100, hash: "hPzzhHUWenNASgMt0ddX+4FtAg6+yDQ4n5ZPUxUqVrigmoCd0nafGqGISjhqoRuucPMQOhGhJkjJh80Z5bY73Ph+wgL+l8qwvo6snlpqZqvG9Q3rkFviV7tWSbQzd1Ub5mO5ZHhhvL11d2W8odJAqpg2E/NVtKqK9bn0znIQHEQh6uRbemhlj8UQQ7TF9mFZmdYKmC1BSbLBjzkm95sLs5k7jqpyOlscDMOKnLOEbDpDeQi89hIAaEjQ0porRiuKCNTGLHgc8PGD+hY4lmmI2MVucwnYin0aU53cuibmEKEQx056WfHyRmQMEIljOA+lioZ2lYYVO/cDUJbMUxFGUKnAdlKAxpjwBEK4CLTw67AkuFbNJSeDG1kOtU9I7xoaiVzoRMHRc4lwBnAffJSR4bWzOeDHEnLtGcvXlwIwbm+L0IN7GqZOFwhcN14KHs0yYkclO8alJ0VVkiACZvGmeI46LMoWv4b61EUgn55W2RFartJNi7cshArRfLJMqkNoAxwXe4/ElRvuk+nYtqwQyuwDC0FEAVXUntmMgnoppRqUGB++4PWdYQJtT39RoXZ3UrlA+oCrIrlpo/UPEoNBvhpmdIRK4eE6bXKvrn6PVKHhGM1GcBG3tKSdKj1x+2CgmkiUecIuJ3FKSsUPB2hXeW/i1ajzPSKkMYsM3PPGlxI="};
+    const passwordObj = createPasswordHashObj('sami', 'asdf');
+    const expectedHashObj = {salt: 'asdf', iterations: 100, hash: "9QUx7N1CVVQ27Hrh/lTTRR4n+14IZn9v2INfNIRIha/wS5UHXZ9Nf8pJpjqFcWMfhcy6vPlOjzUe+uaQL78eKqYdHeygglzRivuq44AsH6NgUAP/TuXMIs9VEpMl3jxuzTrfusyOWc9meiB2sclDDNSulo01HzhaTeIbj6HNy1Z4mgP4fetNMhdIDit3kltfuLL6ZxVBLfWCdtlgwVuzhUZU+j1bnLLaExKBJPNdH3KwSQUZeI5XBLUMGxfLZbY3IpkZ3NUJPVVODCjx1tMdSkzZJ7L34hcBYtgxE7I08cZEQFxf0kO4deErZM0HPgjjM82ETlODjoyzNAb7EW4rNhWliOgIyNwvzZW0YLXs9tEGvmbYmWuFMC3h8ReYbxKAtpWZT48s3oBK29uts4WTQLBBGPmFe4Ns0sqSNTjYe0blPGZpygcu3jRVjdx3rt5wo8ONPr22FSRrG5NbJj+w/+VO/oYzvzMMSosQVhHGbasekqAx1Kw1hHBrkbh/jZgffLCmlkQA7nFX5V3FZ8IPXXpP1EpyasRC5gJLifeFzdHDgj+MwQgCuuLSAjDBhha7asYn+4b5F1fvCuqU6yzeHWXmL33B6JIOKnOEqfAoj4CiOLBROThLj4kwp5PI6Vd1KGwQurzGgPqWhELoh2HvvAiEeGrchLyTrYevsCNu47c="};
     expect(passwordObj).to.not.equal(null);
-
+    expect(passwordObj).to.deep.equal(expectedHashObj);
     done();
   });
 
@@ -22,8 +55,7 @@ describe('use model tests', function(){
       expect(user.username).to.equal('username');
       expect(user.password).to.be.an('object');
       expect(user.password.hash.length).to.equal(684);
-          done();
-      // expect(passwordObj).to.deep.equal(expectedHashObj);
+      done();
     });
 
   });
