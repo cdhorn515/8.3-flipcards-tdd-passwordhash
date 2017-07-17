@@ -3,22 +3,46 @@ var Cards = require('../models/cards');
 var createUser = require('../app').createUser;
 var createPasswordHashObj = require('../app').createPasswordHashObj;
 var login = require('../app').login;
+var createCard = require('../app').createCard;
 var expect = require('chai').expect;
 
-// describe('card model tests', function(){
-//
-//   afterEach(function(done) {
-//     Cards.deleteMany({}).then(function() {
-//       done();
-//     });
-//   });
-//
-//   beforeEach(function(done) {
-//     Cards.insertMany([
-//       {username: "sami", cards: [{question: "do you like peanut butter?"}]}
-//     ]).then(done());
-//   });
-// });
+describe('card model tests', function(){
+
+  afterEach(function(done) {
+    Cards.deleteMany({}).then(function() {
+      done();
+    });
+  });
+
+  beforeEach(function(done) {
+    Cards.insertMany([
+      {username: "sami",  question: "do you like peanut butter?"},
+      {username: "sami", question: "do you like belly rubs?"},
+      {username: "sami", question: "do you like to play with squeaky toys?"}
+    ]).then(done());
+  });
+
+  afterEach(function(done) {
+    Cards.deleteMany({}).then(done());
+  });
+
+  it('should create a card in mongo', function(done) {
+    expect(4).to.not.equal(5);
+    createCard('username', 'Asking away').then(function(result) {
+      expect(5).to.equal(5);
+      console.log(result);
+      expect(result.question).to.equal('Asking away');
+    });
+      done();
+  });
+
+    it('should run cards test', function(){
+        expect(1).to.not.equal(9);
+   });
+
+});
+
+// ------------------------------------
 
 describe('user model tests', function(){
 
@@ -33,7 +57,7 @@ describe('user model tests', function(){
 it('will not login if invalid user', function(done){
   createUser('sami', 'treats').then(function(user){
   login('sami', 'treats').then(function(result) {
-    console.log("HERE ", result);
+    // console.log("HERE ", result);
     expect(result).to.not.equal(false);
   }).then(done());
 });
@@ -42,7 +66,7 @@ it('will not login if invalid user', function(done){
   it('will not log in if invalid password', function(done) {
     createUser('sami', 'treats').then(function(user){
       login('sami', 'peanutbutter').then(function(result) {
-      console.log("HERE 2 ", result);
+      // console.log("HERE 2 ", result);
         expect(result).to.equal(false);
       }).then(done());
     });

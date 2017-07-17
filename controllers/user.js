@@ -1,5 +1,5 @@
-const User = require('../models/user');
-const crypto = require('crypto');
+var User = require('../models/user');
+var crypto = require('crypto');
 
 
 // const createUser = function(username, password) {

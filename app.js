@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose');
 var User = require('./models/user');
+var Cards = require('./models/cards');
 var crypto = require('crypto');
 
 mongoose.Promise = require('bluebird');
@@ -10,6 +11,14 @@ var env = process.env.NODE_ENV || "development";
 var mongoURL = require('./config.json')[env].mongoURL;
 
 mongoose.connect(mongoURL);
+
+//----------------FLIPCARD FUNCTIONS-----------\\
+var createCard = function(username, question) {
+return Cards.create({username: username, question: question});
+};
+
+
+// --------------USER FUNCTIONS----------------\\
 var createUser = function(username, password) {
    return User.create({username: username, password: createPasswordHashObj(password)});
 };
@@ -36,7 +45,8 @@ var login = function(username, password) {
 module.exports = {
   createUser: createUser,
   createPasswordHashObj: createPasswordHashObj,
-  login: login
+  login: login,
+  createCard: createCard
 };
 
 /*
