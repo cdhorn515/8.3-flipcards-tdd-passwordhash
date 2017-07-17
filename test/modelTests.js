@@ -36,7 +36,6 @@ it('will not login if invalid user', function(done){
     console.log("HERE ", result);
     expect(result).to.not.equal(false);
   }).then(done());
-
 });
 });
 
@@ -46,7 +45,6 @@ it('will not login if invalid user', function(done){
       console.log("HERE 2 ", result);
         expect(result).to.equal(false);
       }).then(done());
-
     });
   });
 
