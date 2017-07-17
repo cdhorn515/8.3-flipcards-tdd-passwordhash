@@ -4,6 +4,8 @@ var createUser = require('../app').createUser;
 var createPasswordHashObj = require('../app').createPasswordHashObj;
 var login = require('../app').login;
 var createCard = require('../app').createCard;
+var updateCard = require('../app').updateCard;
+
 var expect = require('chai').expect;
 
 describe('card model tests', function(){
@@ -24,6 +26,14 @@ describe('card model tests', function(){
 
   afterEach(function(done) {
     Cards.deleteMany({}).then(done());
+  });
+
+  it('should update card in mongo', function(done) {
+    expect(4).to.equal(4);
+    updateCard('sami', 'do you like belly rubs?', 'true').then(function(result){
+      expect(answer).to.equal("true");
+    });
+    done();
   });
 
   it('should create a card in mongo', function(done) {

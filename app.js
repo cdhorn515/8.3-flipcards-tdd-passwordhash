@@ -17,6 +17,27 @@ var createCard = function(username, question) {
 return Cards.create({username: username, question: question});
 };
 
+var updateCard = function(username, question) {
+  Cards.findOne({
+    username: username,
+    question: question
+  }).then(function(result) {
+    console.log("HERE", result);
+  });
+};
+
+// var reply = {
+//     message: req.body.reply,
+//     userFrom: req.user._id
+// };
+//
+// Message.findOneAndUpdate(
+//     req.params.id,
+//     { $push: { replies: reply } },
+//     { upsert: true }, // upsert looks to find a Message with that id and if it doesn't exist creates the Message
+//     function(err, data) {
+//         // Handle err
+// });
 
 // --------------USER FUNCTIONS----------------\\
 var createUser = function(username, password) {
@@ -46,7 +67,8 @@ module.exports = {
   createUser: createUser,
   createPasswordHashObj: createPasswordHashObj,
   login: login,
-  createCard: createCard
+  createCard: createCard,
+  updateCard: updateCard
 };
 
 /*
