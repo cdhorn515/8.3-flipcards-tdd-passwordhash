@@ -1,10 +1,10 @@
-var User = require('../models/user');
+var Users = require('../models/users');
 var Cards = require('../models/cards');
-var createUser = require('../app').createUser;
-var createPasswordHashObj = require('../app').createPasswordHashObj;
-var login = require('../app').login;
-var createCard = require('../app').createCard;
-var updateCard = require('../app').updateCard;
+var createUser = require('../controllers/helpers').createUser;
+var createPasswordHashObj = require('../controllers/helpers').createPasswordHashObj;
+var login = require('../controllers/helpers').login;
+var createCard = require('../controllers/helpers').createCard;
+var updateCard = require('../controllers/helpers').updateCard;
 
 var expect = require('chai').expect;
 
@@ -57,11 +57,11 @@ describe('card model tests', function(){
 describe('user model tests', function(){
 
   beforeEach(function(done) {
-      User.deleteMany({}).then(done());
+      Users.deleteMany({}).then(done());
     });
 
   afterEach(function(done){
-  User.deleteMany({}).then(done());
+  Users.deleteMany({}).then(done());
 });
 
 it('will not login if invalid user', function(done){
