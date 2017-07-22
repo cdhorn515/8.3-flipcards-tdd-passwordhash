@@ -7,11 +7,21 @@
   <body>
 
 <form class="" action="/quiz" method="get">
-  <input type="text" name="" value="">Select a deck of cards from the options below:
-  {{#cardDeck}}
-  <input type="submit" name="" value="" id={{deckName}}>
-  {{/cardDeck}}
+  <h3>Select a deck of cards from the options below:</h3>
+  {{#model}}
+  <input type="submit" name="" value="{{deckName}}" id={{_id}}>
+  {{/model}}
 </form>
 
+{{#startQuiz}}
+{{#model}}
+<form class="" action="index.html" method="post">
+  <h4>{{question}}</h4>
+  <label for="answer">Answer: </label>
+  <input type="text" name="answer" value="" placeholder="type answer here">
+  <button type="submit" name="button">Submit</button>
+</form>
+{{/model}}
+{{/startQuiz}}
   </body>
 </html>

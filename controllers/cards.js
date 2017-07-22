@@ -21,30 +21,67 @@ module.exports = {
   },
   homePage: function(req, res) {
     var context = {
-      loggedIn: true,
+      // loggedIn: true,
       signedIn: true,
       username: req.session.username
     };
-    res.render('home', context)
-;  },
-
+    res.render('home', context);
+  },
+  createCardLanding: function(req, res) {
+    var context = {
+      // loggedIn: true,
+      signedIn: true,
+      username: req.session.username
+    };
+    res.render('createCard',context);
+  },
   createCard: function(req, res) {
+    var context = {
+      // loggedIn: true,
+      signedIn: true,
+      username: req.session.username
+    };
     var newCard = new Cards({
       username: req.body.username,
       deckName: req.body.deckName,
       question: req.body.question,
       answer: req.body.answer
     });
-    res.redirect('/home');
+    res.redirect('/createCard');
   },
   editCard: function(req, res) {
-
+    var context = {
+      signedIn: true,
+      // loggedIn: true,
+      username: req.session.username,
+    };
+    Cards.find({}).then(function(cards){
+      context.model = cards;
+      // console.log("HERE", snippets);
+      res.render('home', context);
+    });
   },
   quizLanding: function(req, res) {
-    
+    var context = {
+      signedIn: true,
+      username: req.session.username,
+    };
+    Cards.find({}).then(function(cards) {
+      context.model = cards;
+      // console.log("HERE", snippets);
+      res.render('quiz', context);
+    });
   },
   startQuiz: function(req, res) {
-
+    var context = {
+      signedIn: true,
+      username: req.session.username,
+      startQuiz: true
+    };
+    Cards.find({_id: req.body.id}).then(function(card) {
+      context.model = card;
+      res.render('quiz', context);
+    });
   }
 
 };

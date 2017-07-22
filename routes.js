@@ -11,10 +11,11 @@ module.exports = function(app){
   app.get('/login', userController.loginLanding);
   app.post('/login', userController.loginUser);
 
-  app.get('/createCard', cardController.landing);
+  app.get('/createCard', cardController.createCardLanding);
   app.post('/createCard', cardController.createCard);
 
-  app.get('/quiz', cardController.startQuiz);
+  app.get('/quiz', cardController.quizLanding);
+  app.post('/quiz', cardController.startQuiz);
 
   app.get('/home', cardController.homePage);
 };
