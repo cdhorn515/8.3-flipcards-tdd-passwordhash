@@ -37,7 +37,7 @@ var login = function(username, password) {
 
 module.exports = {
   landing: function(req, res) {
-    req.session.user = '';
+    req.session.username = '';
     var context = {
       loggedIn: false,
       signedIn: false
@@ -46,7 +46,7 @@ module.exports = {
   },
 
   signupLanding: function(req, res) {
-    req.session.user = '';
+    req.session.username = '';
     var context = {
       loggedIn: false,
       signedIn: false
@@ -66,8 +66,8 @@ module.exports = {
   userSignup: function(req, res) {
     if(req.body.password && req.body.username) {
     createUser(req.body.username, req.body.password).then(function(newUser) {
-      req.session.name = req.body.name;
-      res.redirect('/snippets');
+      req.session.username = req.body.name;
+      res.redirect('/home');
     }).catch(function(error) {
       if(error) {
       var context = {
@@ -98,7 +98,7 @@ module.exports = {
       } else {
           req.session.username = username;
           // console.log('user name is: ', req.session.username);
-          res.redirect('/snippets');
+          res.redirect('/home');
         }
       });
     }

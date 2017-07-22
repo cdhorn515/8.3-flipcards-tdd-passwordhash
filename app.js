@@ -14,13 +14,25 @@ var path = require('path');
 
 var app = express();
 
+var nodeEnv = process.env.NODE_ENV || "development";
+
+var config = require('./config.json')[nodeEnv];
 mongoose.Promise = require('bluebird');
+mongoose.connect(config.mongoURL);
 
-var env = process.env.NODE_ENV || "development";
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+app.set('views', path.join(__dirname, 'views'));
 
-var mongoURL = require('./config.json')[env].mongoURL;
-
-mongoose.connect(mongoURL);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(expressValidator());
+app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cats',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // //----------------FLIPCARD FUNCTIONS-----------\\
 // var createCard = function(username, question) {

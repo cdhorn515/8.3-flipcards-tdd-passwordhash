@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="/static/styles.css">
+
+</head>
+
+<body>
+  <h1>Welcome to Flipcards!</h1>
+
+  <header>
+
+    <form class="float" action="/home" method="get">
+      <input type="submit" name="" value="Home">
+    </form>
+
+    <form class="float" action="/createCard" method="get">
+      <input type="submit" name="" value="Create a Card">
+    </form>
+
+    {{#username}}
+      <form class="float" action="/signup" method="get">
+        <input type="submit" name="" value="Logged in as {{username}}">
+      </form>
+    {{/username}}
+
+    {{#signedIn}}
+      <form class="float" action="/login" method="get">
+        <input type="submit" name="" value="Log out">
+      </form>
+    {{/signedIn}}
+
+    {{^signedIn}}
+    <form class="float" action="/login" method="get">
+      <input type="submit" name="" value="Log in">
+    </form>
+    {{/signedIn}}
+
+  </header>
+  <div class="clearFloat"></div>
+
+<h3>What would you like to do?</h3>
+
+<form class="" action="/createCard" method="get">
+  <label for="">Create flipcards</label>
+  <button type="submit" name="button">Submit</button>
+</form>
+
+<form class="" action="/quiz" method="get">
+<label for="">Start quiz</label>
+  <button type="submit" name="button">Submit</button>
+</form>

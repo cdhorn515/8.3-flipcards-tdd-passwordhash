@@ -19,8 +19,29 @@ module.exports = {
   landing: function(req, res) {
 
   },
-  createCard: function(req, res) {
+  homePage: function(req, res) {
+    var context = {
+      loggedIn: true,
+      signedIn: true,
+      username: req.session.username
+    };
+    res.render('home', context)
+;  },
 
+  createCard: function(req, res) {
+    var newCard = new Cards({
+      username: req.body.username,
+      deckName: req.body.deckName,
+      question: req.body.question,
+      answer: req.body.answer
+    });
+    res.redirect('/home');
+  },
+  editCard: function(req, res) {
+
+  },
+  quizLanding: function(req, res) {
+    
   },
   startQuiz: function(req, res) {
 

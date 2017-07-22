@@ -9,16 +9,16 @@
 </head>
 
 <body>
-  <h1>Create a snippet</h1>
+  <h1>Create a Card</h1>
 
   <header>
 
-    <form class="float" action="/snippets" method="get">
-      <input type="submit" name="" value="Snippet">
+    <form class="float" action="/quiz" method="get">
+      <input type="submit" name="" value="Start Quiz">
     </form>
 
-    <form class="float" action="/createSnippet" method="get">
-      <input type="submit" name="" value="Create a Snippet">
+    <form class="float" action="/createCard" method="get">
+      <input type="submit" name="" value="Create a Card">
     </form>
 
     {{#username}}
@@ -46,25 +46,18 @@
     <!-- <label for="gab">Code Snippet</label>
       <input type="text" name="title" value="" placeholder="Type code here"> -->
     <div>
-      <label for="deck">Deck</label>
-      <input type="text" name="deck" value="" placeholder="Title of Snippet">
+      <label for="deck">Deck name</label>
+      <input type="text" name="deck" value="" placeholder="Which deck should this go in?">
     </div>
     <div>
-      <label for="code">Snippet Code</label>
-      <input type="text" name="code" value="" placeholder="Snippet code">
+      <label for="code">Question</label>
+      <input type="text" name="code" value="" placeholder="Type your question here">
     </div>
     <div>
-      <label for="language">Language</label>
-      <input type="text" name="language" value="" placeholder="Snippet language">
+      <label for="language">Answer</label>
+      <input type="text" name="language" value="" placeholder="Type the answer here">
     </div>
-    <div>
-      <label for="tags">Tags</label>
-      <input type="text" name="tags" value="" placeholder="Enter tags separated by a space">
-    </div>
-    <div>
-      <label for="notes">Notes</label>
-      <textarea name="notes" rows="5" cols="80" placeholder="Notes on code"></textarea>
-    </div>
+
     <div>
       <input type="submit" name="" value="Submit">
     </div>

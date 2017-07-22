@@ -4,14 +4,17 @@ var crypto = require('crypto');
 var Cards = require('../models/cards');
 
 //----------------FLIPCARD FUNCTIONS-----------\\
-var createCard = function(username, question) {
-return Cards.create({username: username, question: question});
+var createCard = function(username, deckName, question, answer) {
+
+  return Cards.create({username: username,
+    deckName: deckName, question: question,
+    answer: answer});
 };
 
-var updateCard = function(username, question, answer) {
-  Cards.find({username: username})
-   .where({question: question})
+var updateCard = function(question, answer) {
+  Cards.find({question: question})
     .then(function(result) {
+      result.answer = answer;
     console.log("HERE", result);
   });
 };

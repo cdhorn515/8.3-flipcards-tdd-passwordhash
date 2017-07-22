@@ -8,11 +8,11 @@ describe('user endpoint tests', function(){
   it('user can go to login page', function(done) {
     request(app)
     .get('/login')
-    .expect(500, done);
+    .expect(200, done);
   });
   it('user can go to signup page', function(done) {
     request(app)
     .get('/signup')
-    .expect(500, done);
+    .expect(200, done);
   });
 });
