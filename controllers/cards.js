@@ -29,30 +29,37 @@ module.exports = {
       signedIn: true,
       username: req.session.username
     };
-    var newCard = new Cards({
-      username: req.body.username,
-      deckName: req.body.deckName,
-  });
-      var question = req.body.question;
-      var answer = req.body.answer;
-
+    var question = req.body.question;
+    var answer = req.body.answer;
+    req.session.deckName = req.body.deckName;
+    Cards.findOne({
+      deckName: req.session.deckName }).then(function(result){
+      if(!result){
+        var newCard = new Cards({
+          username: req.session.username,
+          deckName: req.session.deckName,
+      });
       newCard.cards.push({question: question, answer: answer});
       newCard.save();
-      console.log("NEW CARD", newCard);
+    } else {
+      result.cards.push({question: question, answer: answer});
+      result.save();
+    }
+  });
 
     res.redirect('/createCard');
   },
-  editCard: function(req, res) {
-    var context = {
-      signedIn: true,
-      // loggedIn: true,
-      username: req.session.username,
-    };
-    Cards.updateOne({_id: req.params.id},
-  {activity: req.body.activity}).then(function(newActivity){
-    res.render('home', context);
-  });
-  },
+  // editCard: function(req, res) {
+  //   var context = {
+  //     signedIn: true,
+  //     // loggedIn: true,
+  //     username: req.session.username,
+  //   };
+  //   Cards.updateOne({_id: req.params.id},
+  // {}).then(function(){
+  //   res.render('home', context);
+  // });
+  // },
 
   deleteCard: function (req, res) {
     var context = {
@@ -87,10 +94,14 @@ module.exports = {
     };
     req.session.card = req.params.id;
 
-    Cards.find({_id: req.session.card}).then(function(card) {
-      console.log("CARD", card);
+    Cards.find({_id: req.params.id}).then(function(card) {
+      var index = Math.floor((Math.random()*3));
+
       context.model = card;
-      req.session.answer = card[0].answer;
+      context.question = card[0].cards[index].question;
+      console.log("INDEX QUEST", card[0].cards[index].question);
+      req.session.answer = card[0].cards[index].answer;
+      console.log(("INDEX ANS ", card[0].cards[index].answer));
 
       res.render('quiz', context);
     });

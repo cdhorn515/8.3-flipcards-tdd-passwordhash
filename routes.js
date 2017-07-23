@@ -21,7 +21,7 @@ module.exports = function(app){
 
   app.get('/home', cardController.homePage);
 
-  app.put('/editCard/:id', cardController.editCard);
+  // app.put('/editCard/:id', cardController.editCard);
 
   app.delete('/deleteCard/:id', cardController.deleteCard);
 
