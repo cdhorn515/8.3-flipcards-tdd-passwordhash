@@ -38,6 +38,10 @@ var login = function(username, password) {
 module.exports = {
   landing: function(req, res) {
     req.session.username = '';
+    req.session.numCorrect = 0;
+    req.session.numIncorrect = 0;
+    req.session.correct = false;
+
     var context = {
       loggedIn: false,
       signedIn: false
@@ -47,6 +51,10 @@ module.exports = {
 
   signupLanding: function(req, res) {
     req.session.username = '';
+    req.session.numCorrect = 0;
+    req.session.numIncorrect = 0;
+    req.session.correct = false;
+
     var context = {
       loggedIn: false,
       signedIn: false
@@ -56,6 +64,10 @@ module.exports = {
 
   loginLanding: function(req, res) {
     req.session.username = '';
+    req.session.numCorrect = 0;
+    req.session.numIncorrect = 0;
+    req.session.correct = false;
+
     var context = {
       loggedIn: false,
       signedIn: false,

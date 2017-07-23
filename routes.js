@@ -15,7 +15,15 @@ module.exports = function(app){
   app.post('/createCard', cardController.createCard);
 
   app.get('/quiz', cardController.quizLanding);
-  app.post('/quiz', cardController.startQuiz);
+
+  app.get('/quiz/:id', cardController.startQuiz );
+  app.post('/quiz/:id', cardController.startQuiz);
 
   app.get('/home', cardController.homePage);
+
+  app.put('/editCard/:id', cardController.editCard);
+
+  app.delete('/deleteCard/:id', cardController.deleteCard);
+
+  app.post('/answer', cardController.questionAnswered);
 };

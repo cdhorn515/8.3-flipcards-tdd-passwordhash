@@ -6,16 +6,16 @@
   </head>
   <body>
 
-<form class="" action="/quiz" method="get">
   <h3>Select a deck of cards from the options below:</h3>
-  {{#model}}
-  <input type="submit" name="" value="{{deckName}}" id={{_id}}>
-  {{/model}}
+    {{#model}}
+<form class="" action="/quiz/{{id}}" method="get">
+  <button type="submit" name="" value="{{deckName}}" id={{_id}}>{{deckName}}</button>
 </form>
+  {{/model}}
 
 {{#startQuiz}}
 {{#model}}
-<form class="" action="index.html" method="post">
+<form class="" action="/answer" method="post">
   <h4>{{question}}</h4>
   <label for="answer">Answer: </label>
   <input type="text" name="answer" value="" placeholder="type answer here">
@@ -23,5 +23,20 @@
 </form>
 {{/model}}
 {{/startQuiz}}
+
+{{#correct}}
+<h4>That's correct! You've answered {{numCorrect}} questions correctly.</h4>
+{{/correct}}
+
+
+<!-- {{^req.session.correct}}
+<h4>Current total:</h4>
+<h5>You've answered {{req.session.numCorrect}} questions correctly and {{req.session.numIncorrect}} questions incorrectly.</h5>
+{{/req.session.correct}} -->
+
+
+
+
+
   </body>
 </html>
