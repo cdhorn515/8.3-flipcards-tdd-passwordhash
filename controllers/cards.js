@@ -32,10 +32,14 @@ module.exports = {
     var newCard = new Cards({
       username: req.body.username,
       deckName: req.body.deckName,
-      question: req.body.question,
-      answer: req.body.answer
-    });
-    newCard.save();
+  });
+      var question = req.body.question;
+      var answer = req.body.answer;
+
+      newCard.cards.push({question: question, answer: answer});
+      newCard.save();
+      console.log("NEW CARD", newCard);
+
     res.redirect('/createCard');
   },
   editCard: function(req, res) {
