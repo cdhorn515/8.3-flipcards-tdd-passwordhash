@@ -6,6 +6,32 @@
   </head>
   <body>
 
+    <form class="float" action="/home" method="get">
+      <input type="submit" name="" value="Home">
+    </form>
+
+    {{#username}}
+      <form class="float" action="/signup" method="get">
+        <input type="submit" name="" value="Logged in as {{username}}">
+      </form>
+    {{/username}}
+
+    {{#signedIn}}
+      <form class="float" action="/login" method="get">
+        <input type="submit" name="" value="Log out">
+      </form>
+    {{/signedIn}}
+
+    {{^signedIn}}
+    <form class="float" action="/login" method="get">
+      <input type="submit" name="" value="Log in">
+    </form>
+    {{/signedIn}}
+
+  </header>
+  <div class="clearFloat"></div>
+
+
   <h3>Select a deck of cards from the options below:</h3>
     {{#model}}
 <form class="" action="/quiz/{{id}}" method="get">

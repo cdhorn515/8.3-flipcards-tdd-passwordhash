@@ -25,5 +25,6 @@ module.exports = function(app){
 
   app.delete('/deleteCard/:id', cardController.deleteCard);
 
+  app.get('/answer', cardController.startQuiz);
   app.post('/answer', cardController.questionAnswered);
 };

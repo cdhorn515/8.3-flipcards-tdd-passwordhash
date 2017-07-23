@@ -94,7 +94,7 @@ module.exports = {
     };
     req.session.card = req.params.id;
 
-    Cards.find({_id: req.params.id}).then(function(card) {
+    Cards.find({_id: req.session.card}).then(function(card) {
       var index = Math.floor((Math.random()*3));
 
       context.model = card;
@@ -120,14 +120,11 @@ module.exports = {
       req.session.correct = true;
       req.session.numCorrect++;
       res.redirect('/quiz');
-
     } else {
       req.session.correct = false;
       req.session.numIncorrect++;
       res.redirect('/answer');
-
   }
-
 }
 
 };
